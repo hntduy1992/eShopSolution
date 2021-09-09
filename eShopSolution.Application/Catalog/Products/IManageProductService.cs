@@ -1,9 +1,9 @@
-﻿using eShopSolution.Application.Catalog.Dtos;
-using eShopSolution.Application.Catalog.Products.Dtos;
-using eShopSolution.Application.Catalog.Products.Dtos.Manage;
-using System;
+﻿using eShopSolution.ViewModel.Catalog.Common;
+using eShopSolution.ViewModel.Catalog.ProductImages;
+using eShopSolution.ViewModel.Catalog.Products;
+using eShopSolution.ViewModel.Catalog.Products.Manage;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace eShopSolution.Application.Catalog.Products
@@ -17,5 +17,11 @@ namespace eShopSolution.Application.Catalog.Products
         Task<bool> UpdateStock(int product, int addQuatity);
         Task<int> Delete(int productId);
         Task<PageResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request);
+        Task<ProductViewModel> GetById(int productId, string languageId);
+        Task<ProductImageViewModel> GetImageById(int imageId);
+        Task<int> AddImage(int productId, ProductImageCreateRequest request);
+        Task<int> RemoveImage(int imageId);
+        Task<int> UpdateImage(int imageId, ProductImageUpdateRequest request);
+        Task<List<ImageProductViewModel>> GetListImage(int productId);
     }
 }
