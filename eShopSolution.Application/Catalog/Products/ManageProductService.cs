@@ -5,7 +5,6 @@ using eShopSolution.Utilities.Exceptions;
 using eShopSolution.ViewModel.Catalog.Common;
 using eShopSolution.ViewModel.Catalog.ProductImages;
 using eShopSolution.ViewModel.Catalog.Products;
-using eShopSolution.ViewModel.Catalog.Products.Manage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -112,7 +111,7 @@ namespace eShopSolution.Application.Catalog.Products
 
 
 
-        public async Task<PageResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
+        public async Task<PageResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request)
         {
             //Select
             var query = from p in _context.Products
@@ -123,8 +122,8 @@ namespace eShopSolution.Application.Catalog.Products
             //Filter
             if (!string.IsNullOrEmpty(request.Keyword))
                 query = query.Where(x => x.pt.Name.Contains(request.Keyword));
-            if (request.CategoryId.Count > 0)
-                query = query.Where(p => request.CategoryId.Contains(p.pic.CategoryId));
+            if (request.CategoryIds.Count > 0)
+                query = query.Where(p => request.CategoryIds.Contains(p.pic.CategoryId));
             //Paging
             int totalRow = await query.CountAsync();
 
